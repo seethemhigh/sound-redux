@@ -15,6 +15,7 @@ class Popover extends Component {
 
     this.onOutsideClick = this.onOutsideClick.bind(this);
     this.toggleIsOpen = this.toggleIsOpen.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
 
     this.state = { isOpen: false };
   }
@@ -45,20 +46,26 @@ class Popover extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   }
 
+  handleBlur() {
+    this.setState({
+      isOpen: false,
+    });
+  }
+
   render() {
     const { isOpen } = this.state;
     const { className, children } = this.props;
 
     return (
-      <div
+      <button
         ref={(node) => { this.popover = node; }}
         className={`${className} popover ${(isOpen ? ' open' : '')}`}
         onClick={this.toggleIsOpen}
       >
         {children[0]}
-        {isOpen ? children[1] : null}
+        {isOpen ? React.cloneElement(children[1], { onBlur: this.handleBlur }) : null}
         <span className="player-button-tooltip">Playlist</span>
-      </div>
+      </button>
     );
   }
 }
