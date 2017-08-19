@@ -11,6 +11,12 @@ class TogglePlayButton extends Component {
     this.togglePlay = this.togglePlay.bind(this);
   }
 
+  componentDidMount() {
+    if (this.props.isPlaying) {
+      this.button.focus();
+    }
+  }
+
   togglePlay() {
     const { isPlaying } = this.props;
     const audioElement = document.getElementById('audio');
@@ -28,13 +34,14 @@ class TogglePlayButton extends Component {
   render() {
     const { isPlaying } = this.props;
     return (
-      <div
+      <button
         className={`toggle-play-button active ${(isPlaying ? 'is-playing' : '')}`}
         onClick={this.togglePlay}
+        ref={(node) => { this.button = node; }}
       >
         <i className="toggle-play-button-icon ion-radio-waves" />
         <i className="toggle-play-button-icon ion-ios-play" />
-      </div>
+      </button>
     );
   }
 }

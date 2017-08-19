@@ -16,9 +16,9 @@ class SongCard extends Component {
     }
 
     return (
-      <div className="toggle-play-button" onClick={playSong}>
+      <button className="toggle-play-button" onClick={playSong}>
         <i className="toggle-play-button-icon ion-ios-play" />
-      </div>
+      </button>
     );
   }
 
